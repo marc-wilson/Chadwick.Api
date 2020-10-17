@@ -2,3 +2,4 @@ appsettings.json
 appsettings.development.json
 bin
 obj
+ChadwickAPI.config
