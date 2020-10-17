@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -26,21 +27,30 @@ namespace Chadwick.Api.Controllers
         }
 
         /// <summary>
-        /// Get All People
+        /// Gets all people
         /// </summary>
+        /// <param name="country"></param>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetPeopleAsync))]
         [ProducesResponseType(typeof(Paged<People>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetPeopleAsync(int page = DefaultPage, int limit = DefaultItemCount)
+        public async Task<IActionResult> GetPeopleAsync(string country = null, string state = null, string city = null, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            var totalCount = await Db.People.CountAsync();
-            var offset = page * limit;
-            if (offset > totalCount) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
-            var people = await Db.People.Skip(page * limit).Take(limit).ToListAsync();
-            var url = Path.Join(Request.Scheme, Request.Host.ToString(), Request.Path.ToString());
-            var response = new Paged<People>(people, page, limit, totalCount, url);
+            if (page < 0 || limit < 0 || limit > 100) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            var people = Db.People.AsQueryable();
+            if (!string.IsNullOrWhiteSpace(country))
+                people = people.Where(p => p.BirthCountry == country);
+            if (!string.IsNullOrWhiteSpace(state))
+                people = people.Where(p => p.BirthState == state);
+            if (!string.IsNullOrWhiteSpace(city))
+                people = people.Where(p => p.BirthCity == city);
+            // var url = Path.Join(Request.Scheme, Request.Host.ToString(), Request.Path.ToString());
+            var totalCount = await people.CountAsync();
+            var results = await people.Skip(page * limit).Take(limit).ToListAsync();
+            var response = new Paged<People>(results, page, limit, totalCount, Request);
             return Ok(response);
         }
 

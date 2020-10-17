@@ -13,6 +13,7 @@ namespace Chadwick.Api.Controllers
     /// Main API for Batting Post Stats
     /// </summary>
     [Route("api/batting-post")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class BattingPostController : ChadwickBaseController
     {
         /// <summary>

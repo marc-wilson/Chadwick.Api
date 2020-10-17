@@ -12,9 +12,8 @@ namespace Chadwick.Api.Controllers
     /// <summary>
     /// Main API for Fielding Stats
     /// </summary>
-    [ApiController]
-    [Produces("application/json")]
     [Route("api/fielding")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class FieldingController : ChadwickBaseController
     {
         /// <summary>

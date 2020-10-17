@@ -1,5 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Web;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Chadwick.Api.Models
 {
@@ -55,7 +59,7 @@ namespace Chadwick.Api.Models
         /// <param name="results"></param>
         /// <param name="pageNumber"></param>
         /// <param name="totalItems"></param>
-        public Paged(List<T> results, int pageNumber, int limit, int totalItems, string url)
+        public Paged(List<T> results, int pageNumber, int limit, int totalItems, HttpRequest request)
         {
             var resultCount = results.Count;
             var totalPages = Convert.ToInt64(Math.Ceiling(Convert.ToDouble(totalItems) / Convert.ToDouble(limit))) - 1;
@@ -63,10 +67,18 @@ namespace Chadwick.Api.Models
             PageNumber = pageNumber;
             ResultCount = resultCount;
             TotalItems = totalItems;
-            TotalPages = totalPages;
-            Previous = pageNumber > 0 ? $"{url}?page={pageNumber - 1}&limit={limit}" : null;
-            Current = $"{url}?page={pageNumber}&limit={limit}";
-            Next = pageNumber < totalPages ? $"{url}?page={pageNumber + 1}&limit={limit}" : null;
+            TotalPages = totalPages > -1 ? totalPages : 0;
+            Previous = GetUrl(pageNumber, limit, request);
+            // Previous = pageNumber > 0 ? $"{url}?page={pageNumber - 1}&limit={limit}" : null;
+            // Current = $"{url}?page={pageNumber}&limit={limit}";
+            // Next = pageNumber < totalPages ? $"{url}?page={pageNumber + 1}&limit={limit}" : null;
+        }
+
+        private static string GetUrl(int pageNumber, int limit, HttpRequest request)
+        {
+            var queryString = HttpUtility.ParseQueryString(request.QueryString.Value);
+            queryString.Set("page", pageNumber.ToString());
+            return $"{request.Scheme}://{request.Host}{request.Path}?{queryString}";
         }
         
     }
