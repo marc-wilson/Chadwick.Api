@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Web;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Extensions;
 
 namespace Chadwick.Api.Models
 {
@@ -58,7 +56,9 @@ namespace Chadwick.Api.Models
         /// </summary>
         /// <param name="results"></param>
         /// <param name="pageNumber"></param>
+        /// <param name="limit"></param>
         /// <param name="totalItems"></param>
+        /// <param name="request"></param>
         public Paged(List<T> results, int pageNumber, int limit, int totalItems, HttpRequest request)
         {
             var resultCount = results.Count;
@@ -68,16 +68,16 @@ namespace Chadwick.Api.Models
             ResultCount = resultCount;
             TotalItems = totalItems;
             TotalPages = totalPages > -1 ? totalPages : 0;
-            Previous = GetUrl(pageNumber, limit, request);
-            // Previous = pageNumber > 0 ? $"{url}?page={pageNumber - 1}&limit={limit}" : null;
-            // Current = $"{url}?page={pageNumber}&limit={limit}";
-            // Next = pageNumber < totalPages ? $"{url}?page={pageNumber + 1}&limit={limit}" : null;
+            Previous = pageNumber > 0 ? GetUrl(pageNumber - 1, limit, request) : null;
+            Current = GetUrl(pageNumber, limit, request);
+            Next = pageNumber + 1 <= totalPages ? GetUrl(pageNumber + 1, limit, request) : null;
         }
 
         private static string GetUrl(int pageNumber, int limit, HttpRequest request)
         {
             var queryString = HttpUtility.ParseQueryString(request.QueryString.Value);
             queryString.Set("page", pageNumber.ToString());
+            queryString.Set("limit", limit.ToString());
             return $"{request.Scheme}://{request.Host}{request.Path}?{queryString}";
         }
         

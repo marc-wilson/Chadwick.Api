@@ -58,8 +58,10 @@ namespace Chadwick.Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Chadwick API Swagger");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Chadwick API v1");
                 c.DisplayOperationId();
+                c.DocumentTitle = "Chadwick API";
+                c.DisplayRequestDuration();
             });
             var option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");

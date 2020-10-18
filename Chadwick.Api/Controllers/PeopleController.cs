@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Chadwick.Api.Models;
@@ -39,7 +37,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPeopleAsync(string country = null, string state = null, string city = null, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (page < 0 || limit < 0 || limit > 100) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var people = Db.People.AsQueryable();
             if (!string.IsNullOrWhiteSpace(country))
                 people = people.Where(p => p.BirthCountry == country);
@@ -47,7 +45,6 @@ namespace Chadwick.Api.Controllers
                 people = people.Where(p => p.BirthState == state);
             if (!string.IsNullOrWhiteSpace(city))
                 people = people.Where(p => p.BirthCity == city);
-            // var url = Path.Join(Request.Scheme, Request.Host.ToString(), Request.Path.ToString());
             var totalCount = await people.CountAsync();
             var results = await people.Skip(page * limit).Take(limit).ToListAsync();
             var response = new Paged<People>(results, page, limit, totalCount, Request);
