@@ -111,10 +111,10 @@ namespace Chadwick.Api.Controllers
         /// </summary>
         /// <param name="playerId"></param>
         /// <returns></returns>
-        [HttpGet("{playerId}", Name = nameof(GetBattingStatsByPlayerAsync))]
+        [HttpGet("{playerId}", Name = nameof(GetBattingStatsByPlayerIdAsync))]
         [ProducesResponseType(typeof(List<Batting>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetBattingStatsByPlayerAsync(string playerId)
+        public async Task<IActionResult> GetBattingStatsByPlayerIdAsync(string playerId)
         {
             var battingStats = await Db.Batting.Where(b => b.PlayerId == playerId).ToListAsync();
             return Ok(battingStats);

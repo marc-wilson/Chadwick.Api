@@ -79,7 +79,7 @@ namespace Chadwick.Api.Controllers
         public async Task<IActionResult> GetBattingStatsAsync(string playerId)
         {
             var battingController = new BattingController(Db);
-            return await battingController.GetBattingStatsByPlayerAsync(playerId);
+            return await battingController.GetBattingStatsByPlayerIdAsync(playerId);
         }
         
         /// <summary>
