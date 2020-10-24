@@ -23,18 +23,19 @@ namespace Chadwick.Api.Controllers
         public BattingController(ChadwickDbContext db) : base(db) {}
 
         /// <summary>
-        /// Gets a pages list of batting stats
+        /// Gets a paged list of batting stats
         /// </summary>
         /// <param name="page"></param>
         /// <param name="limit"></param>
-        /// <returns></returns>
+        /// <returns>
+        /// </returns>
         [HttpGet(Name = nameof(GetBattingAsync))]
         [ProducesResponseType(typeof(Paged<Batting>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetBattingAsync(int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var batting = Db.Batting.AsQueryable();
 
             var totalItems = await batting.CountAsync();
@@ -56,7 +57,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetBattingByYearIdAsync(int yearId, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var batting = Db.Batting.Where(b => b.YearId == yearId);
             var totalItems = await batting.CountAsync();
             var results = await batting.Skip(page * limit).Take(limit).ToListAsync();
@@ -77,7 +78,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetBattingByTeamIdAsync(string teamId, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var batting = Db.Batting.Where(b => b.TeamId == teamId);
             var totalItems = await batting.CountAsync();
             var results = await batting.Skip(page * limit).Take(limit).ToListAsync();
@@ -98,7 +99,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetBattingByLeagueIdAsync(string leagueId, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var batting = Db.Batting.Where(b => b.LeagueId == leagueId);
             var totalItems = await batting.CountAsync();
             var results = await batting.Skip(page * limit).Take(limit).ToListAsync();

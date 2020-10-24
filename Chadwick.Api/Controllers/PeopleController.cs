@@ -37,7 +37,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetPeopleAsync(string country = null, string state = null, string city = null, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var people = Db.People.AsQueryable();
             if (!string.IsNullOrWhiteSpace(country))
                 people = people.Where(p => p.BirthCountry == country);
@@ -110,6 +110,21 @@ namespace Chadwick.Api.Controllers
         {
             var fieldingController = new FieldingController(Db);
             return await fieldingController.GetFieldingStatsByPlayerAsync(playerId);
+        }
+        
+        /// <summary>
+        /// Gets a persons post season fielding stats
+        /// </summary>
+        /// <param name="playerId"></param>
+        /// <returns></returns>
+        [HttpGet("{playerId}/fielding-post", Name = nameof(GetFieldingPostStatsAsync))]
+        [ProducesResponseType(typeof(List<FieldingPost>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> GetFieldingPostStatsAsync(string playerId)
+        {
+            var fieldingPostController = new FieldingPostController(Db);
+            return await fieldingPostController.GetFieldingPostStatsByPlayerAsync(playerId);
         }
     }
 }

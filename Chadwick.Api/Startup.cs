@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace Chadwick.Api
 {
@@ -59,9 +60,21 @@ namespace Chadwick.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Chadwick API v1");
-                c.DisplayOperationId();
                 c.DocumentTitle = "Chadwick API";
+                c.EnableDeepLinking();
                 c.DisplayRequestDuration();
+                c.DefaultModelExpandDepth(2);
+                c.DefaultModelRendering(ModelRendering.Model);
+                c.DefaultModelsExpandDepth(-1);
+                c.DisplayOperationId();
+                c.DisplayRequestDuration();
+                c.DocExpansion(DocExpansion.None);
+                c.EnableDeepLinking();
+                c.MaxDisplayedTags(5);
+                c.ShowExtensions();
+                c.ShowCommonExtensions();
+                c.EnableValidator();
+                c.SupportedSubmitMethods(SubmitMethod.Get, SubmitMethod.Head);
             });
             var option = new RewriteOptions();
             option.AddRedirect("^$", "swagger");
@@ -87,7 +100,7 @@ namespace Chadwick.Api
                 Title = "Chadwick API",
                 Version = "v1"
             });
-            
+
             // swaggerGenOptions.AddSecurityDefinition("JWT", new OpenApiSecurityScheme
             // {
             //     Name = "Bearer",
@@ -113,7 +126,7 @@ namespace Chadwick.Api
             // });
 
             var filePath = Path.Combine(HostingEnvironment.ContentRootPath, "ChadwickAPI.config");
-            swaggerGenOptions.IncludeXmlComments(filePath);
+            swaggerGenOptions.IncludeXmlComments(filePath, true);
         }
     }
 }

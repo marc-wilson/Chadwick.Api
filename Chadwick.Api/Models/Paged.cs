@@ -15,42 +15,42 @@ namespace Chadwick.Api.Models
         /// Results for the page
         /// </summary>
         public List<T> Results { get; }
-        
+
         /// <summary>
         /// Page number
         /// </summary>
         public int PageNumber { get; }
-        
+
         /// <summary>
         /// Result Count
         /// </summary>
         public int ResultCount { get; }
-        
+
         /// <summary>
         /// Total items
         /// </summary>
         public int TotalItems { get; }
-        
+
         /// <summary>
         /// Total pages available
         /// </summary>
         public long TotalPages { get; }
-        
+
         /// <summary>
         /// Url to next page
         /// </summary>
         public string Next { get; }
-        
+
         /// <summary>
         /// Url to current page
         /// </summary>
         public string Current { get; }
-        
+
         /// <summary>
         /// Url to previous page
         /// </summary>
         public string Previous { get; }
-        
+
         /// <summary>
         /// Builds a Paged Response of T
         /// </summary>
@@ -73,6 +73,7 @@ namespace Chadwick.Api.Models
             Next = pageNumber + 1 <= totalPages ? GetUrl(pageNumber + 1, limit, request) : null;
         }
 
+
         private static string GetUrl(int pageNumber, int limit, HttpRequest request)
         {
             var queryString = HttpUtility.ParseQueryString(request.QueryString.Value);
@@ -80,6 +81,24 @@ namespace Chadwick.Api.Models
             queryString.Set("limit", limit.ToString());
             return $"{request.Scheme}://{request.Host}{request.Path}?{queryString}";
         }
-        
+
     }
+
+    /// <summary>
+    /// Static Paged Helper Methods
+    /// </summary>
+    public static class Paged
+    {
+        /// <summary>
+        /// Validates page is greater than -1 and limit is less than 101
+        /// </summary>
+        /// <param name="page"></param>
+        /// <param name="limit"></param>
+        /// <returns></returns>
+        public static bool ValidatePage(int page, int limit)
+        {
+            return page >= 0 && limit >= 0 && limit <= 100;
+        }
+    }
+
 }

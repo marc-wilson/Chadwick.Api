@@ -7,6 +7,7 @@ namespace Chadwick.Api.Controllers
     /// Base Controller for API
     /// </summary>
     [Produces("application/json")]
+    [ApiController]
     public class ChadwickBaseController : Controller
     {
         /// <summary>
@@ -31,18 +32,6 @@ namespace Chadwick.Api.Controllers
         public ChadwickBaseController(ChadwickDbContext db)
         {
             Db = db;
-        }
-
-        /// <summary>
-        /// Validates page is greater than -1 and limit is less than 101
-        /// </summary>
-        /// <param name="page"></param>
-        /// <param name="limit"></param>
-        /// <returns></returns>
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public bool ValidatePage(int page, int limit)
-        {
-            return page >= 0 && limit >= 0 && limit <= 100;
         }
     }
 }

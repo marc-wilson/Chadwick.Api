@@ -17,13 +17,13 @@ namespace Chadwick.Api.Controllers
     public class FieldingController : ChadwickBaseController
     {
         /// <summary>
-        /// BattingController
+        /// FieldingController
         /// </summary>
         /// <param name="dbContext"></param>
         public FieldingController(ChadwickDbContext db) : base(db) {}
 
         /// <summary>
-        /// Gets a pages list of fielding stats
+        /// Gets a paged list of fielding stats
         /// </summary>
         /// <param name="page"></param>
         /// <param name="limit"></param>
@@ -34,7 +34,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetFieldingAsync(int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var fielding = Db.Fielding.AsQueryable();
 
             var totalItems = await fielding.CountAsync();
@@ -55,7 +55,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetFieldingByYearIdAsync(int yearId, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var fielding = Db.Fielding.Where(f => f.YearId == yearId);
             var totalItems = await fielding.CountAsync();
             var results = await fielding.Skip(page * limit).Take(limit).ToListAsync();
@@ -75,7 +75,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetFieldingByTeamIdAsync(string teamId, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var fielding = Db.Fielding.Where(f => f.TeamId == teamId);
             var totalItems = await fielding.CountAsync();
             var results = await fielding.Skip(page * limit).Take(limit).ToListAsync();
@@ -95,7 +95,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetFieldingByLeagueIdAsync(string leagueId, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var fielding = Db.Fielding.Where(f => f.LeagueId == leagueId);
             var totalItems = await fielding.CountAsync();
             var results = await fielding.Skip(page * limit).Take(limit).ToListAsync();
@@ -108,7 +108,7 @@ namespace Chadwick.Api.Controllers
         /// </summary>
         /// <param name="playerId"></param>
         /// <returns></returns>
-        [HttpGet("{playerId}")]
+        [HttpGet("{playerId}", Name = nameof(GetFieldingStatsByPlayerAsync))]
         [ProducesResponseType(typeof(List<Fielding>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetFieldingStatsByPlayerAsync(string playerId)

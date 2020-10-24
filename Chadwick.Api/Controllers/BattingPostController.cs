@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 namespace Chadwick.Api.Controllers
 {
     /// <summary>
-    /// Main API for Batting Post Stats
+    /// Main API for Batting Post Season Stats
     /// </summary>
     [Route("api/batting-post")]
     public class BattingPostController : ChadwickBaseController
@@ -23,7 +23,7 @@ namespace Chadwick.Api.Controllers
         public BattingPostController(ChadwickDbContext db) : base(db) {}
         
         /// <summary>
-        /// Gets a pages list of post season batting stats
+        /// Gets a paged list of post season batting stats
         /// </summary>
         /// <param name="page"></param>
         /// <param name="limit"></param>
@@ -34,7 +34,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetBattingPostAsync(int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var batting = Db.BattingPost.AsQueryable();
 
             var totalItems = await batting.CountAsync();
@@ -56,7 +56,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetBattingPostByYearIdAsync(int yearId, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var batting = Db.BattingPost.Where(b => b.YearId == yearId);
             var totalItems = await batting.CountAsync();
             var results = await batting.Skip(page * limit).Take(limit).ToListAsync();
@@ -77,7 +77,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetBattingPostByTeamIdAsync(string teamId, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var batting = Db.BattingPost.Where(b => b.TeamId == teamId);
             var totalItems = await batting.CountAsync();
             var results = await batting.Skip(page * limit).Take(limit).ToListAsync();
@@ -98,7 +98,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetBattingPostByLeagueIdAsync(string leagueId, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var batting = Db.BattingPost.Where(b => b.LeagueId == leagueId);
             var totalItems = await batting.CountAsync();
             var results = await batting.Skip(page * limit).Take(limit).ToListAsync();
@@ -119,7 +119,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetBattingPostByPlayoffLevelAsync(string level, int page = DefaultPage, int limit = DefaultItemCount)
         {
-            if (!ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
+            if (!Paged.ValidatePage(page, limit)) return new BadRequestObjectResult(new ErrorResponse("Index out of range"));
             var batting = Db.BattingPost.Where(b => b.LevelOfPlayoffs == level);
             var totalItems = await batting.CountAsync();
             var results = await batting.Skip(page * limit).Take(limit).ToListAsync();
