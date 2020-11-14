@@ -44,7 +44,7 @@ namespace Chadwick.Api.Controllers
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        [HttpGet("{yearId:int}", Name = nameof(GetAwardsManagersByYearIdAsync))]
+        [HttpGet("year/{yearId:int}", Name = nameof(GetAwardsManagersByYearIdAsync))]
         [ProducesResponseType(typeof(Paged<AwardsManager>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

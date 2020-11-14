@@ -43,7 +43,7 @@ namespace Chadwick.Api.Controllers
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        [HttpGet("{yearId:int}", Name = nameof(GetCollegePlayingByYearIdAsync))]
+        [HttpGet("year/{yearId:int}", Name = nameof(GetCollegePlayingByYearIdAsync))]
         [ProducesResponseType(typeof(Paged<CollegePlaying>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

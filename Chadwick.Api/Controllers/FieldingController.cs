@@ -49,7 +49,7 @@ namespace Chadwick.Api.Controllers
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        [HttpGet("{yearId:int}", Name = nameof(GetFieldingByYearIdAsync))]
+        [HttpGet("year/{yearId:int}", Name = nameof(GetFieldingByYearIdAsync))]
         [ProducesResponseType(typeof(Paged<Fielding>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
