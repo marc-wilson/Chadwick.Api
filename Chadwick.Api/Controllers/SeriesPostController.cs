@@ -15,6 +15,10 @@ namespace Chadwick.Api.Controllers
     [Route("api/series-post")]
     public class SeriesPostController : ChadwickBaseController
     {
+        /// <summary>
+        /// SeriesPostController
+        /// </summary>
+        /// <param name="dbContext"></param>
         public SeriesPostController(ChadwickDbContext dbContext) : base(dbContext) {}
         
         /// <summary>

@@ -15,6 +15,10 @@ namespace Chadwick.Api.Controllers
     [Route("api/home-games")]
     public class HomeGamesController : ChadwickBaseController
     {
+        /// <summary>
+        /// HomeGamesController
+        /// </summary>
+        /// <param name="dbContext"></param>
         public HomeGamesController(ChadwickDbContext dbContext) : base(dbContext) {}
         
         /// <summary>
@@ -36,10 +40,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<HomeGames>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of Home Game stats by yearId
         /// </summary>
+        /// <param name="yearId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -56,10 +61,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<HomeGames>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of Home Game stats by leagueId
         /// </summary>
+        /// <param name="leagueId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -76,10 +82,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<HomeGames>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of Home Game stats by teamId
         /// </summary>
+        /// <param name="teamId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -96,10 +103,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<HomeGames>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of Home Game stats by parkId
         /// </summary>
+        /// <param name="parkId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>

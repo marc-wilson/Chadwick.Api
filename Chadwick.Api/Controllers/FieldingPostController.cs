@@ -20,7 +20,7 @@ namespace Chadwick.Api.Controllers
         /// FieldingPostController
         /// </summary>
         /// <param name="dbContext"></param>
-        public FieldingPostController(ChadwickDbContext db) : base(db) {}
+        public FieldingPostController(ChadwickDbContext dbContext) : base(dbContext) {}
         
         /// <summary>
         /// Gets a paged list of fielding post season stats
@@ -42,10 +42,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<FieldingPost>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of fielding post season stats by year
         /// </summary>
+        /// <param name="yearId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -62,10 +63,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<FieldingPost>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of fielding post season stats by teamId
         /// </summary>
+        /// <param name="teamId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -82,10 +84,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<FieldingPost>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a pages list of fielding post season stats by leagueId
         /// </summary>
+        /// <param name="leagueId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -102,11 +105,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<FieldingPost>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets post season fielding stats by playoff level
         /// </summary>
-        /// <param name="leagueId"></param>
+        /// <param name="level"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>

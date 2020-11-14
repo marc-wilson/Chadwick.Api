@@ -46,7 +46,7 @@ namespace Chadwick.Api.Controllers
         /// <summary>
         /// Get post season batting stats by year
         /// </summary>
-        /// <param name="year"></param>
+        /// <param name="yearId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -109,7 +109,7 @@ namespace Chadwick.Api.Controllers
         /// <summary>
         /// Gets post season batting stats by playoff level
         /// </summary>
-        /// <param name="leagueId"></param>
+        /// <param name="level"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>

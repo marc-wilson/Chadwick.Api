@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Chadwick.Api.Models;
@@ -15,6 +16,10 @@ namespace Chadwick.Api.Controllers
     [Route("college-playing")]
     public class CollegePlayingController : ChadwickBaseController
     {
+        /// <summary>
+        /// CollegePlayingController
+        /// </summary>
+        /// <param name="dbContext"></param>
         public CollegePlayingController(ChadwickDbContext dbContext) : base(dbContext) {}
         
         /// <summary>
@@ -36,10 +41,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<CollegePlaying>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of College Playing stats by yearId
         /// </summary>
+        /// <param name="yearId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -58,13 +64,12 @@ namespace Chadwick.Api.Controllers
         }
 
         /// <summary>
-        /// Gets a paged list of College Playing stats by playerId
+        /// Gets a list of College Playing stats by playerId
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="limit"></param>
+        /// <param name="playerId"></param>
         /// <returns></returns>
         [HttpGet("{playerId}", Name = nameof(GetCollegePlayingByPlayerIdAsync))]
-        [ProducesResponseType(typeof(CollegePlaying), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<CollegePlaying>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetCollegePlayingByPlayerIdAsync(string playerId)

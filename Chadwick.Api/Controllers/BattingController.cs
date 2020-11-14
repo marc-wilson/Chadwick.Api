@@ -20,7 +20,7 @@ namespace Chadwick.Api.Controllers
         /// BattingController
         /// </summary>
         /// <param name="dbContext"></param>
-        public BattingController(ChadwickDbContext db) : base(db) {}
+        public BattingController(ChadwickDbContext dbContext) : base(dbContext) {}
 
         /// <summary>
         /// Gets a paged list of batting stats
@@ -47,7 +47,7 @@ namespace Chadwick.Api.Controllers
         /// <summary>
         /// Get batting stats by year
         /// </summary>
-        /// <param name="year"></param>
+        /// <param name="yearId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>

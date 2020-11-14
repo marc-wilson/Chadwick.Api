@@ -41,10 +41,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<FieldingOFSplit>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of outfield position split season stats by yearId
         /// </summary>
+        /// <param name="yearId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -65,8 +66,6 @@ namespace Chadwick.Api.Controllers
         /// <summary>
         /// Gets a paged list of outfield position split season stats by playerId
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="limit"></param>
         /// <returns></returns>
         [HttpGet("{playerId}", Name = nameof(GetFieldingOFSplitByPlayerIdAsync))]
         [ProducesResponseType(typeof(List<FieldingOFSplit>), StatusCodes.Status200OK)]

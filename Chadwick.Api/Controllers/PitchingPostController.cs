@@ -62,11 +62,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<PitchingPost>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of Pitching stats by teamId
         /// </summary>
-        /// <param name="yearId"></param>
+        /// <param name="teamId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -83,11 +83,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<PitchingPost>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of Pitching stats by leagueId
         /// </summary>
-        /// <param name="yearId"></param>
+        /// <param name="leagueId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>

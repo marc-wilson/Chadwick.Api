@@ -15,6 +15,10 @@ namespace Chadwick.Api.Controllers
     [Route("api/schools")]
     public class SchoolsController : ChadwickBaseController
     {
+        /// <summary>
+        /// SchoolsController
+        /// </summary>
+        /// <param name="dbContext"></param>
         public SchoolsController(ChadwickDbContext dbContext) : base (dbContext) {}
         
         /// <summary>

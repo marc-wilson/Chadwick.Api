@@ -16,6 +16,10 @@ namespace Chadwick.Api.Controllers
     [Route("api/salaries")]
     public class SalariesController : ChadwickBaseController
     {
+        /// <summary>
+        /// SalariesController
+        /// </summary>
+        /// <param name="dbContext"></param>
         public SalariesController(ChadwickDbContext dbContext) : base (dbContext) {}
         
         /// <summary>
@@ -112,7 +116,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetSalariesByPlayerIdAsync(string playerId)
         {
-            var salaries = Db.Salaries.Where(s => s.PlayerId == playerId).ToListAsync();
+            var salaries = await Db.Salaries.Where(s => s.PlayerId == playerId).ToListAsync();
             return Ok(salaries);
         }
     }

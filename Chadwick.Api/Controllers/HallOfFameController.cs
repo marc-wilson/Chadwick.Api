@@ -15,6 +15,10 @@ namespace Chadwick.Api.Controllers
     [Route("api/hall-of-fame")]
     public class HallOfFameController : ChadwickBaseController
     {
+        /// <summary>
+        /// HallOfFameController
+        /// </summary>
+        /// <param name="dbContext"></param>
         public HallOfFameController(ChadwickDbContext dbContext) : base(dbContext) {}
         
         /// <summary>

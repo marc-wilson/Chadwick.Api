@@ -16,6 +16,10 @@ namespace Chadwick.Api.Controllers
     [Route("shared-player-awards")]
     public class AwardsSharedPlayersController : ChadwickBaseController
     {
+        /// <summary>
+        /// AwardsSharedPlayersController
+        /// </summary>
+        /// <param name="dbContext"></param>
         public AwardsSharedPlayersController(ChadwickDbContext dbContext) : base(dbContext) {}
 
         /// <summary>
@@ -37,10 +41,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<AwardsSharePlayer>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of Shared Player Awards by year
         /// </summary>
+        /// <param name="yearId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -57,10 +62,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<AwardsSharePlayer>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a pages list of Shared Player Awards by leagueId
         /// </summary>
+        /// <param name="leagueId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>

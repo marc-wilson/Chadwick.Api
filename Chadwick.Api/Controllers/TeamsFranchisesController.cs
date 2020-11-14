@@ -51,7 +51,7 @@ namespace Chadwick.Api.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> GetTeamsFranchiseByFranchiseIdAsync(string franchiseId)
         {
-            var team = Db.TeamsFranchises.FirstOrDefaultAsync(t => t.FranchiseId == franchiseId);
+            var team = await Db.TeamsFranchises.FirstOrDefaultAsync(t => t.FranchiseId == franchiseId);
             return Ok(team);
         }
     }

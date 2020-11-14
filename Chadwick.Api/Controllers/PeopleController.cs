@@ -28,8 +28,10 @@ namespace Chadwick.Api.Controllers
         /// Gets all people
         /// </summary>
         /// <param name="country"></param>
+        /// <param name="city"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
+        /// <param name="state"></param>
         /// <returns></returns>
         [HttpGet(Name = nameof(GetPeopleAsync))]
         [ProducesResponseType(typeof(Paged<People>), StatusCodes.Status200OK)]

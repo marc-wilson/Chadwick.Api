@@ -15,6 +15,10 @@ namespace Chadwick.Api.Controllers
     [Route("api/teams-half")]
     public class TeamsHalfController : ChadwickBaseController
     {
+        /// <summary>
+        /// TeamsHalfController
+        /// </summary>
+        /// <param name="dbContext"></param>
         public TeamsHalfController(ChadwickDbContext dbContext) : base(dbContext)
         {
         }
@@ -63,7 +67,7 @@ namespace Chadwick.Api.Controllers
         /// <summary>
         /// Gets a paged list of Teams by divisionId
         /// </summary>
-        /// <param name="franchiseId"></param>
+        /// <param name="divisionId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>

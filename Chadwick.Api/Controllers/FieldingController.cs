@@ -20,7 +20,7 @@ namespace Chadwick.Api.Controllers
         /// FieldingController
         /// </summary>
         /// <param name="dbContext"></param>
-        public FieldingController(ChadwickDbContext db) : base(db) {}
+        public FieldingController(ChadwickDbContext dbContext) : base(dbContext) {}
 
         /// <summary>
         /// Gets a paged list of fielding stats
@@ -42,10 +42,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<Fielding>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a pages list of fielding stats by year
         /// </summary>
+        /// <param name="yearId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -62,10 +63,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<Fielding>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a pages list of fielding stats by teamId
         /// </summary>
+        /// <param name="teamId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -82,10 +84,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<Fielding>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a pages list of fielding stats by leagueId
         /// </summary>
+        /// <param name="leagueId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>

@@ -15,6 +15,10 @@ namespace Chadwick.Api.Controllers
     [Route("api/teams")]
     public class TeamsController : ChadwickBaseController
     {
+        /// <summary>
+        /// TeamsController
+        /// </summary>
+        /// <param name="dbContext"></param>
         public TeamsController(ChadwickDbContext dbContext) : base(dbContext)
         {
         }
@@ -80,11 +84,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<Teams>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of Teams by divisionId
         /// </summary>
-        /// <param name="franchiseId"></param>
+        /// <param name="divisionId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>

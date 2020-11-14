@@ -41,10 +41,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<FieldingOF>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of outfield position stats by yearId
         /// </summary>
+        /// <param name="yearId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -63,10 +64,9 @@ namespace Chadwick.Api.Controllers
         }
         
         /// <summary>
-        /// Gets a paged list of outfield position stats by playerId
+        /// Gets a list of outfield position stats by playerId
         /// </summary>
-        /// <param name="page"></param>
-        /// <param name="limit"></param>
+        /// <param name="playerId"></param>
         /// <returns></returns>
         [HttpGet("{playerId}", Name = nameof(GetFieldingOFByPlayerIdAsync))]
         [ProducesResponseType(typeof(List<FieldingOF>), StatusCodes.Status200OK)]

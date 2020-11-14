@@ -55,10 +55,11 @@ namespace Chadwick.Api.Controllers
             var allStarStats = await Db.AllStarFull.Where(a => a.PlayerId == playerId).ToListAsync();
             return Ok(allStarStats);
         }
-        
+
         /// <summary>
         /// Gets a paged list of all star stats by year
         /// </summary>
+        /// <param name="yearId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
@@ -75,10 +76,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<AllStarFull>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of all star stats by teamId
         /// </summary>
+        /// <param name="teamId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>

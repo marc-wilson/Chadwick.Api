@@ -15,6 +15,10 @@ namespace Chadwick.Api.Controllers
     [Route("api/managers")]
     public class ManagersController : ChadwickBaseController
     {
+        /// <summary>
+        /// ManagersController
+        /// </summary>
+        /// <param name="dbContext"></param>
         public ManagersController(ChadwickDbContext dbContext) : base(dbContext) {}
         
         /// <summary>
@@ -78,11 +82,11 @@ namespace Chadwick.Api.Controllers
             var response = new Paged<Managers>(results, page, limit, totalItems, Request);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Gets a paged list of Managers by leagueId
         /// </summary>
-        /// <param name="teamId"></param>
+        /// <param name="leagueId"></param>
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
