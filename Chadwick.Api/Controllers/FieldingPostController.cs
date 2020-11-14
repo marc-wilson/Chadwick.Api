@@ -44,7 +44,7 @@ namespace Chadwick.Api.Controllers
         }
         
         /// <summary>
-        /// Gets a pages list of fielding post season stats by year
+        /// Gets a paged list of fielding post season stats by year
         /// </summary>
         /// <param name="page"></param>
         /// <param name="limit"></param>
@@ -64,7 +64,7 @@ namespace Chadwick.Api.Controllers
         }
         
         /// <summary>
-        /// Gets a pages list of fielding post season stats by teamId
+        /// Gets a paged list of fielding post season stats by teamId
         /// </summary>
         /// <param name="page"></param>
         /// <param name="limit"></param>
@@ -89,7 +89,7 @@ namespace Chadwick.Api.Controllers
         /// <param name="page"></param>
         /// <param name="limit"></param>
         /// <returns></returns>
-        [HttpGet("league/{teamId}", Name = nameof(GetFieldingPostByLeagueIdAsync))]
+        [HttpGet("league/{leagueId}", Name = nameof(GetFieldingPostByLeagueIdAsync))]
         [ProducesResponseType(typeof(Paged<FieldingPost>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorResponse), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]

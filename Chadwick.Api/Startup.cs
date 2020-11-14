@@ -70,7 +70,6 @@ namespace Chadwick.Api
                 c.DisplayRequestDuration();
                 c.DocExpansion(DocExpansion.None);
                 c.EnableDeepLinking();
-                c.MaxDisplayedTags(5);
                 c.ShowExtensions();
                 c.ShowCommonExtensions();
                 c.EnableValidator();
