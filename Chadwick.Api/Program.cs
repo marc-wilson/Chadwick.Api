@@ -1,4 +1,7 @@
+using System.Threading.Tasks;
+using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace Chadwick.Api
@@ -12,9 +15,20 @@ namespace Chadwick.Api
         /// Main
         /// </summary>
         /// <param name="args"></param>
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var webHost = CreateHostBuilder(args).Build();
+            
+            using (var scope = webHost.Services.CreateScope())
+            {
+                // get the IpPolicyStore instance
+                var ipPolicyStore = scope.ServiceProvider.GetRequiredService<IIpPolicyStore>();
+
+                // seed IP data from appsettings
+                await ipPolicyStore.SeedAsync();
+            }
+
+            await webHost.RunAsync();
         }
 
         /// <summary>
